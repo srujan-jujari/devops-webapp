@@ -10,6 +10,14 @@ phases:
       - echo Build started
       - echo Build completed successfully
 
+  post_build:
+    commands:
+      - echo Sending Slack notification
+      - |
+        curl -X POST -H 'Content-type: application/json' \
+        --data '{"text":"🚀 CI/CD SUCCESS! Website deployed automatically via AWS."}' \
+        $SLACK_WEBHOOK
+
 artifacts:
   files:
     - '**/*'
